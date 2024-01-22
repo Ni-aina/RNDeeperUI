@@ -6,11 +6,12 @@ import { useState } from 'react';
 import Colors from './contants/Colors';
 import GameOverSreen from './screens/GameOverScreen';
 import { useFonts } from 'expo-font';
-import { AppLoading } from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [roundNumber, setRoundNumber] = useState(0);
 
   const [fontsLoaded] = useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -21,28 +22,38 @@ export default function App() {
     return <AppLoading />
   }
 
-  function pickedNumberHandler (pickedNumber) {
+  function pickedNumberHandler(pickedNumber) {
     setUserNumber(Number.parseInt(pickedNumber));
     setGameIsOver(false);
   }
 
-  let screen = <StartGameSreen onPickNumber={pickedNumberHandler}/>
-  
-  function gameOverHandler() {
+  let screen = <StartGameSreen onPickNumber={pickedNumberHandler} />
+
+  function gameOverHandler(roundsOfNumber) {
     setGameIsOver(true);
+    setRoundNumber(roundsOfNumber)
+  }
+
+  function startNewGameHandler() {
+    setUserNumber(null);
+    setRoundNumber(0);
   }
 
   if (userNumber) {
-    screen = <GameSreen userNumber={userNumber} onGameOver={gameOverHandler}/>
+    screen = <GameSreen userNumber={userNumber} onGameOver={gameOverHandler} />
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverSreen />
+    screen = <GameOverSreen
+      roundNumber={roundNumber}
+      userNumber={userNumber}
+      onStartNewGame={startNewGameHandler}
+    />
   }
 
 
   return (
-    <LinearGradient colors={[Colors.primary700,Colors. accent500]} style={styles.rootscreen}>
+    <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootscreen}>
       <ImageBackground
         source={require('./assets/images/background.jpg')}
         resizeMode='cover'
