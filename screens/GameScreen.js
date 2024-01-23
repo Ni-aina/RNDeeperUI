@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, FlatList, Text } from "react-native";
+import { View, StyleSheet, Alert, FlatList, Dimensions } from "react-native";
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import { useEffect, useState } from "react";
@@ -89,10 +89,12 @@ function GameSreen({ userNumber, onGameOver }) {
 
 export default GameSreen;
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        padding: 24
+        padding: deviceWidth < 380 ? 18 : 36
     },
     instructionText: {
         marginBottom: 16
