@@ -35,7 +35,7 @@ function StartGameSreen({ onPickNumber }) {
         }
         onPickNumber(enteredText);
     }
-    const marginTopDistance = height < 380 ? 30 : 100;
+    const marginTopDistance = height < 400 ? 30 : 100;
     return (
         <ScrollView style={styles.rootContainer}>
             <KeyboardAvoidingView style={styles.rootContainer} behavior="position">

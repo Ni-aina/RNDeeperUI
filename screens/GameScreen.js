@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, FlatList, Dimensions } from "react-native";
+import { View, StyleSheet, Alert, FlatList, Dimensions, ScrollView } from "react-native";
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import { useEffect, useState } from "react";
@@ -56,7 +56,7 @@ function GameSreen({ userNumber, onGameOver }) {
     }, [])
 
     return (
-        <View style={styles.screen}>
+        <ScrollView style={styles.screen}>
             <Title>Oppenent's guess</Title>
             <Card>
                 <NumberContainer>{currentGuess}</NumberContainer>
@@ -83,7 +83,7 @@ function GameSreen({ userNumber, onGameOver }) {
                     keyExtractor={(item) => item}
                 />
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
